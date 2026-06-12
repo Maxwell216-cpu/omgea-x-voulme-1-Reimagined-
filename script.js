@@ -1,29 +1,56 @@
-function navigate(page) {
+unction navigate(page) {
     const display = document.getElementById('content-display');
-    display.innerHTML = '<h2>INITIALIZING...</h2><div class="spinner"></div>';
+    display.innerHTML = '<div class="loader">CONNECTING...</div>';
     
     setTimeout(() => {
-        if (page === 'preview') {
-            display.innerHTML = '<h2>VOLUME 1: PREVIEW</h2><div id="story-grid"></div>';
-            const grid = document.getElementById('story-grid');
-            for(let i=1; i<=8; i++) {
-                grid.innerHTML += `<div class="unit-card" onclick="simulatePurchase(${i})">
-                    <h3>UNIT 0${i}</h3>
-                    <p>ACCESS DATA STREAM</p>
-                </div>`;
-            }
-        } else {
-            display.innerHTML = `<h2>${page.toUpperCase()} SECTOR</h2><p>Data stream initializing...</p>`;
+        switch(page) {
+            case 'preview':
+                display.innerHTML = '<h2>VOLUME 1: PREVIEW</h2><div id="story-grid"></div>';
+                const grid = document.getElementById('story-grid');
+                for(let i=1; i<=8; i++) {
+                    grid.innerHTML += `<div class="unit-card" onclick="simulatePurchase(${i})">
+                        <h3>UNIT 0${i}</h3><p>ACCESS DATA STREAM</p></div>`;
+                }
+                break;
+            case 'media':
+                display.innerHTML = `<h2>TRANSMISSION MATRIX</h2>
+                    <div class="video-embed">
+                        <p>Incoming Signal: [LIVE FEED]</p>
+                        <div class="placeholder-video"></div>
+                    </div>`;
+                break;
+            case 'requisition':
+                display.innerHTML = `<h2>REQUISITION MATRIX</h2>
+                    <div class="shop-grid">
+                        <div class="unit-card"><h3>HARDCOPY VOL 1</h3><button onclick="simulatePurchase('HARDCOPY')">PURCHASE</button></div>
+                    </div>`;
+                break;
         }
     }, 800);
 }
 
-function simulatePurchase(unitId) {
+function simulatePurchase(id) {
     const display = document.getElementById('content-display');
-    display.innerHTML = `<h2>ENCRYPTING UNIT 0${unitId}...</h2><div class="spinner"></div>`;
-    
+    display.innerHTML = `
+        <h2>SECURE PAYMENT TERMINAL</h2>
+        <p>ENTER CLEARANCE CODE FOR ITEM: ${id}</p>
+        <input type="password" id="clearance-code" placeholder="XXXX">
+        <button onclick="verifyCode('${id}')">PROCESS TRANSACTION</button>
+    `;
+}
+
+function verifyCode(id) {
+    const display = document.getElementById('content-display');
+    const code = document.getElementById('clearance-code').value;
+    display.innerHTML = `<h2>PROCESSING...</h2><div class="spinner"></div>`;
+
     setTimeout(() => {
-        display.innerHTML = `<h2>ACCESS GRANTED</h2><p>UNIT 0${unitId} DECRYPTED SUCCESSFULLY.</p>
-        <button onclick="navigate('preview')">RETURN TO HUB</button>`;
-    }, 2000);
+        if (code === "1234") { // You can change this code
+            display.innerHTML = `<h2>TRANSACTION COMPLETE</h2><p>ITEM ${id} HAS BEEN DISPATCHED.</p>
+            <button onclick="navigate('requisition')">RETURN TO REQUISITION</button>`;
+        } else {
+            display.innerHTML = `<h2 style="color:red">TRANSACTION FAILED</h2><p>INVALID CLEARANCE CODE.</p>
+            <button onclick="simulatePurchase('${id}')">RETRY</button>`;
+        }
+    }, 1500);
 }
