@@ -1,6 +1,6 @@
 function navigate(page) {
     const display = document.getElementById('content-display');
-    display.innerHTML = '<h2>CONNECTING...</h2><div class="spinner"></div>';
+    display.innerHTML = '<h2>INITIALIZING...</h2><div class="spinner"></div>';
     
     setTimeout(() => {
         switch(page) {
@@ -8,8 +8,7 @@ function navigate(page) {
                 display.innerHTML = '<h2>VOLUME 1: PREVIEW</h2><div id="story-grid"></div>';
                 const grid = document.getElementById('story-grid');
                 for(let i=1; i<=8; i++) {
-                    grid.innerHTML += `<div class="unit-card" onclick="simulatePurchase(${i})">
-                        <h3>UNIT 0${i}</h3><p>ACCESS DATA STREAM</p></div>`;
+                    grid.innerHTML += `<div class="unit-card" onclick="simulatePurchase(${i})"><h3>UNIT 0${i}</h3><p>ACCESS DATA STREAM</p></div>`;
                 }
                 break;
             case 'media':
@@ -50,8 +49,7 @@ function verifyCode(id) {
             display.innerHTML = `<h2>TRANSACTION COMPLETE</h2><p>ITEM ${id} AUTHORIZED.</p>
             <button onclick="navigate('requisition')">RETURN TO HUB</button>`;
         } else {
-            display.innerHTML = `<h2 style="color:red">TRANSACTION FAILED</h2>
-            <p>INVALID CLEARANCE CODE.</p>
+            display.innerHTML = `<h2 style="color:red">TRANSACTION FAILED</h2><p>INVALID CLEARANCE CODE.</p>
             <button onclick="simulatePurchase('${id}')">RETRY</button>`;
         }
     }, 1500);
