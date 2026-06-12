@@ -1,0 +1,23 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>OMEGA X: PROJECT MALICE</title>
+</head>
+<body>
+    <header class="hub-header">
+        <h1>OMEGA X: PROJECT MALICE</h1>
+        <nav class="hub-nav">
+            <button onclick="navigate('preview')">READ PREVIEW</button>
+            <button onclick="navigate('media')">WATCH TRANSMISSIONS</button>
+            <button onclick="navigate('requisition')">REQUISITION</button>
+        </nav>
+    </header>
+    <main id="content-display">
+        <h2>WELCOME TO THE GRID</h2>
+        <p>Select a terminal sector to begin.</p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
