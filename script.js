@@ -1,6 +1,6 @@
-unction navigate(page) {
+function navigate(page) {
     const display = document.getElementById('content-display');
-    display.innerHTML = '<div class="loader">CONNECTING...</div>';
+    display.innerHTML = '<h2>CONNECTING...</h2><div class="spinner"></div>';
     
     setTimeout(() => {
         switch(page) {
@@ -22,7 +22,8 @@ unction navigate(page) {
             case 'requisition':
                 display.innerHTML = `<h2>REQUISITION MATRIX</h2>
                     <div class="shop-grid">
-                        <div class="unit-card"><h3>HARDCOPY VOL 1</h3><button onclick="simulatePurchase('HARDCOPY')">PURCHASE</button></div>
+                        <div class="unit-card"><h3>HARDCOPY VOL 1</h3>
+                        <button onclick="simulatePurchase('HARDCOPY')">PURCHASE</button></div>
                     </div>`;
                 break;
         }
@@ -45,11 +46,12 @@ function verifyCode(id) {
     display.innerHTML = `<h2>PROCESSING...</h2><div class="spinner"></div>`;
 
     setTimeout(() => {
-        if (code === "1234") { // You can change this code
-            display.innerHTML = `<h2>TRANSACTION COMPLETE</h2><p>ITEM ${id} HAS BEEN DISPATCHED.</p>
-            <button onclick="navigate('requisition')">RETURN TO REQUISITION</button>`;
+        if (code === "1234") {
+            display.innerHTML = `<h2>TRANSACTION COMPLETE</h2><p>ITEM ${id} AUTHORIZED.</p>
+            <button onclick="navigate('requisition')">RETURN TO HUB</button>`;
         } else {
-            display.innerHTML = `<h2 style="color:red">TRANSACTION FAILED</h2><p>INVALID CLEARANCE CODE.</p>
+            display.innerHTML = `<h2 style="color:red">TRANSACTION FAILED</h2>
+            <p>INVALID CLEARANCE CODE.</p>
             <button onclick="simulatePurchase('${id}')">RETRY</button>`;
         }
     }, 1500);
